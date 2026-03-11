@@ -10,5 +10,8 @@ Requires-Dist: boto3
 Requires-Dist: dotenv
 Requires-Dist: matplotlib
 Requires-Dist: seaborn
+Requires-Dist: pymysql
+Requires-Dist: sqlalchemy
+Requires-Dist: mysql-connector-python
 Dynamic: author
 Dynamic: requires-dist

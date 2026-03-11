@@ -4,6 +4,7 @@ import pandas as pd
 from utils.comon_funcions import read_csv
 import os
 from config.path_config import *
+from src.db_implementaion import DbConnector
 
 logger = get_logger(__name__)
 
@@ -52,7 +53,10 @@ class DataProcessor:
                 errors='coerce'
             )
 
-            df_clean[df_clean['arrival_full_date'].isna()]
+            invalid_dates = df_clean[df_clean['arrival_full_date'].isna()]
+
+            num_invalid = invalid_dates.shape[0]
+            logger.info(f"Number of rows with invalid arrival dates: {num_invalid}")
 
             records=df_clean['arrival_full_date'].isna().sum()
             logger.info(f"Number of records are invalid: {records}")
@@ -60,6 +64,14 @@ class DataProcessor:
             df_clean = df_clean.dropna(subset=['arrival_full_date'])
 
             df_clean.drop(['arrival_year','arrival_month','arrival_date'], axis=1, inplace=True)
+            df_clean = df_clean.rename(columns={'Booking_ID': 'booking_id'})
+
+            # Store cleaned data in to mysql...
+
+            db_connector = DbConnector(df_clean)
+            db_connector.load_to_mysql()
+
+            logger.info("Loaded data to mysql...!")
 
             return df_clean
 
