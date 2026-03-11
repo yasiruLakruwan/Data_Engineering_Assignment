@@ -1,4 +1,14 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: Data-Engineering-Assignment
 Version: 0.0.1
 Author: Yasiru Lakruwan
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: scikit-learn
+Requires-Dist: imbalanced-learn
+Requires-Dist: boto3
+Requires-Dist: dotenv
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Dynamic: author
+Dynamic: requires-dist
